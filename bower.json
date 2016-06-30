@@ -1,0 +1,17 @@
+{
+  "name": "SusyTutorial1",
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "authors": [
+    "Matthew Padden"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "susy": "^2.2.12"
+  }
+}

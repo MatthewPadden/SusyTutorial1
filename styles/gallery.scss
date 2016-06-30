@@ -1,0 +1,230 @@
+@import "bower_components/susy/sass/susy";
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+/* Variables - Colour */
+$color1: #24555C;
+$color2: #F2F5F8;
+$color3: #6DC0D1;
+$color4: #2D3638;
+$accent: #D24780;
+
+/* Variables - Breakpoints */
+$bp-s: 420px;
+$bp-m: 720px;
+$bp-l: 1100px;
+
+/* Fonts */
+@import url(http://fonts.googleapis.com/css?family=Libre+Baskerville:400,700|Quattrocento+Sans);
+
+
+/* Variables – Fonts */
+$headings: 'Libre Baskerville', serif;
+$paragraph: 'Quattrocento Sans', sans-serif;
+
+h1 {
+    font-family: $headings;
+    font-size: 2em;
+    @media (min-width: $bp-l) {
+        font-size: 2.2em;
+    }
+}
+
+h2 {
+    font-family: $paragraph;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+}
+
+p {
+    font-family: $paragraph;
+    line-height: 1.6;
+}
+
+
+/* Mixins */
+
+@mixin padding {
+    padding-left: 1em;
+    padding-right: 1em;
+    @media (min-width: $bp-s) {
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+    }
+    @media (min-width: $bp-m) {
+        padding-left: 2em;
+        padding-right: 2em;
+    }
+    @media (min-width: $bp-l) {
+        padding-left: 2.5em;
+        padding-right: 2.5em;
+    }
+}
+
+$susy: (
+  columns: 12,
+  gutters: 0.2,
+  global-box-sizing: border-box
+);
+
+/* Maps */
+$map-l: (
+  columns: 16,
+  gutters: 0,
+  box-sizing: border-box
+);
+
+@include border-box-sizing;
+
+body {
+    background-color: $color2;
+    font-size: 100%;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+header {
+    @include padding;
+    background-color: $color2;
+    color: darken($color4, 20%);
+    padding-top: 3em;
+    padding-bottom: 3em;
+    text-align: center;
+    border-top: 4px solid darken($color2, 10%);
+    h1 {
+        line-height: 1.2;
+        margin-bottom: 1em;
+        padding-bottom: 1em;
+        border-bottom: 2px solid darken($color2, 10%);
+    }
+}
+
+.header__text {
+    max-width: 30em;
+    margin: 0 auto;
+}
+
+main {
+    background-color: darken($color4, 10%);
+}
+
+nav.categories {
+    background-color: $accent;
+    color: darken($accent, 30%);
+    padding: 1em;
+    font-family: $paragraph;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    border-top: 4px solid darken($accent, 15%);
+}
+
+ul.gallery__list {
+    @include clearfix;
+    @include padding;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    list-style: none;
+    li {
+        @include gallery(6);
+        margin-bottom: gutter(12);
+        &:nth-last-child(-n+2) {
+            margin-bottom: 0;
+        }
+    }
+}
+
+footer {
+    @include padding;
+    @include clearfix;
+    padding-top: 3em;
+    background-color: $color4;
+    color: lighten($color4, 40%);
+    clear: both;
+    border-top: 6px solid darken($color4, 10%);
+    .about__photo {
+        @include span(3);
+        padding: 0 1em;
+        img {
+            max-width: 20em;
+            border-radius: 50%;
+        }
+    }
+    .about__text {
+        @include span(9 last);
+    }
+}
+
+p.footer__caption {
+    clear: both;
+    padding: 3em 0 1em 0;
+    color: darken($color4, 10%);
+}
+
+/* First breakpoint */
+@media (min-width: $bp-s) {
+  ul.gallery__list {
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+  }
+  ul.gallery__list li {
+    @include gallery(4);
+    &:nth-last-child(-n+3) {
+        margin-bottom: 0;
+    }
+  }
+}
+
+/* 16-column layout  – activated at large breakpoint */
+@media (min-width: $bp-l) {
+  @include layout($map-l);
+  header {
+    @include span(4);
+    padding-top: 5em;
+  }
+  main {
+    @include span(12 last);
+  }
+  nav.categories {
+    border-left: 4px solid darken($accent, 15%);
+  }
+  ul.gallery__list {
+    padding: 0;
+    border-left: 4px solid $color4;
+  }
+  ul.gallery__list li {
+    @include gallery(3 of 12);
+      margin-bottom: 0;
+      &:nth-last-child(-n+3) {
+          margin-bottom: 0;
+      }
+  }
+  footer {
+    padding-top: 5em;
+    padding-left: 0;
+    padding-right: 0;
+    .about__text {
+      @include span(6);
+      padding-top: 3em;
+    }
+    .about__photo {
+      @include span(3);
+      margin-left: span(4);
+      padding: 0 1.5em;
+    }
+    p.footer__caption {
+      padding-left: 2.5em;
+    }
+  }
+}

@@ -1,0 +1,75 @@
+@import "bower_components/susy/sass/susy";
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+$susy: (
+  columns: 12,
+  container: 1200px,
+  gutters: 1/4,
+  global-box-sizing: border-box,
+  debug: (image: show)
+);
+
+$map-large: (
+  columns: 16,
+  container: auto,
+  gutters: 0,
+  global-box-sizing: border-box
+);
+
+main.wrapper {
+  @include container;
+}
+
+header, article, aside {
+  margin-bottom: gutter(); /* Same width as column gutter. Will use map settings as we have not specified a value */
+}
+
+header {
+  padding: 2em;
+  background-color: #FF4CA5; /* Of course, you can define your colours as variables if you prefer! */
+}
+
+article {
+  @include span(8); /* Calling the span mixin */
+  padding: 2em;
+  background-color: #ff007f;
+}
+
+aside {
+  @include span(4 last); /* we add last as this is the last item on the row */
+  padding: 2em;
+  background-color: #CC0066;
+}
+
+footer {
+  clear: both;
+  padding: 2em;
+  background-color: #7F2653;
+}
+
+/* Gallery */
+ul.gallery {
+  @include clearfix;
+  padding: span(1 of 8); /* Function: Add 1 colum-width of padding all the way around our gallery */
+  list-style: none;
+  li {
+    @include gallery(2 of 6); /* Mixin: Each item takes 2 columns in our six-column width */
+    margin-bottom: gutter(6); /* Function: adding a bottom margin the equivalent of one gutter-width in our six-column context to each item in our gallery */
+
+    &:nth-last-child(-n+3) {
+      margin-bottom: 0; /* remove the bottom margin from our last row, giving us a perfectly even amount of spacing around our gallery */
+    }
+  }
+}
+
+img {
+  display: block;
+  width: 100%;
+}
